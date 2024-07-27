@@ -4,7 +4,7 @@ def draw_area(area):
 
 
 def transpose_area(area):
-    area_t = ['*']
+    area_t = []
     for i in range(len(area)):
         area_t.append([])
         for j in range(len(area[i])):

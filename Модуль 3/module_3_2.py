@@ -1,7 +1,7 @@
 import re
 
 
-def send_email(message: str, recipient: str, sender: str = 'university.help@gmail.com') -> int:
+def send_email(message: str, recipient: str, *, sender: str = 'university.help@gmail.com') -> int:
     email_pattern = r'.+@.+\.(ru|com|net)'
     if (not re.search(email_pattern, recipient)) or (not re.search(email_pattern, sender)):
         print(f'Невозможно отправить письмо с адреса {sender} на адрес {recipient}')
@@ -21,4 +21,4 @@ def send_email(message: str, recipient: str, sender: str = 'university.help@gmai
 send_email('123', 'vap42.t@mail.r')
 send_email('123', 'university.help@gmail.com')
 send_email('123', 'vap42.t@mail.ru')
-send_email('123', 'vap42.t@mail.ru', 'vlad.popov.99.t@gmail.com')
+send_email('123', 'vap42.t@mail.ru', sender='vlad.popov.99.t@gmail.com')

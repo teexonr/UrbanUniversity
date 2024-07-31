@@ -4,12 +4,13 @@ from time import sleep
 
 
 def write_words(word_count, file_name):
-    with open(file_name, 'w'):
-        pass
-    for n_word in range(word_count):
-        print(f'Какое-то слово №{n_word}', file=open(file_name, 'a', encoding='utf-8'))
-        sleep(0.1)
-    print('Завершилась запись в файл', file_name)
+    with open(file_name, 'w', encoding='utf-8') as file:
+        res = ''
+        for n_word in range(1, word_count + 1):
+            res += f'Какое-то слово №{n_word}\n'
+            sleep(0.1)
+        file.write(res)
+        print('Завершилась запись в файл', file_name)
 
 
 numbers = (10, 30, 200, 100)

@@ -1,3 +1,4 @@
+import inspect
 from threading import Lock
 
 
@@ -20,11 +21,12 @@ class BankAccount:
 def introspection_info(obj):
     return {
         'type': type(obj),
-        'attributes': [a for a in dir(obj) if not callable(a)],
-        'methods': [a for a in dir(obj) if callable(a)],
+        'attributes': dir(obj),
+        'methods': [a for a in dir(obj) if inspect.ismethod(getattr(obj, a))],
         'module': __name__
     }
 
 
-info = introspection_info(BankAccount())
-print(*info.items(), sep='\n')
+bank = BankAccount()
+number_info = introspection_info(bank)
+print(*number_info.items(), sep='\n')

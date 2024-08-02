@@ -30,8 +30,9 @@ for i in range(1, 11, 3):
 cursor.execute('SELECT * FROM Users WHERE age != 60')
 users = cursor.fetchall()
 
-for user in users:
-    print('Имя: {} | Почта: {} | Возраст: {} | Баланс: {}'.format(*user[1:]))
-
 connection.commit()
 connection.close()
+
+if __name__ == '__main__':
+    for user in users:
+        print('Имя: {} | Почта: {} | Возраст: {} | Баланс: {}'.format(*user[1:]))

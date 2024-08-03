@@ -1,9 +1,9 @@
-# Переменные
+# Строки и индексация строк
 
-amount_hw = 12
-spend_time = 1.5
-course_name = 'Python'
-avg_time = spend_time / amount_hw
+example = 'Топинамбур'
 
-print(f'Курс: {course_name}, всего задач: {amount_hw}, '
-        f'затрачено часов: {spend_time}, среднее время выполнения {avg_time} часа.')
+print(example[0])
+print(example[-1])
+print(example[int(len(example)/2):])
+print(example[::-1])
+print(*[example[i] for i in range(len(example)) if i % 2], sep='')

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from task1.forms import ContactForm
@@ -9,16 +10,23 @@ def main_page(requests):
     return render(requests, 'main.html', context={'title': 'Главная страница'})
 
 
-def games(requests):
-    games_ = Game.objects.all()
-    title = 'Игры'
-    dates = ['15 января', '22 января', '29 января', '5 февраля']
-    releases = [f'№{i} от {date}' for i, date in enumerate(dates, start=1)]
-    context = {'title': title,
-               'releases': releases,
-               'games': games_}
+def games(request):
+    posts = Game.objects.all().order_by('-size')
+    paginator = Paginator(posts, 2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'pagination.html', {'page_obj': page_obj, 'title': 'Игры'})
 
-    return render(requests, 'games.html', context=context)
+
+def games2(request):
+    games_ = Game.objects.all().order_by('-size')
+    items_per_page = request.GET.get('items_per_page', 5)
+    paginator = Paginator(games_, items_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj, 'items_per_page': items_per_page}
+    return render(request, 'pagination2.html', context=context)
 
 
 def cart(requests):
@@ -49,3 +57,13 @@ def sign_up(request):
 
     context = {'title': 'Регистрация', 'error': error, 'username': info.get('username')}
     return render(request, 'signup.html', context=context)
+
+
+def games0(requests):
+    games_ = Game.objects.all()
+    title = 'Игры'
+    context = {'title': title,
+               'releases': games_,
+               'games': games_}
+
+    return render(requests, 'pagination.html', context=context)

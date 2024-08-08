@@ -2,10 +2,18 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from task1.forms import ContactForm
+from rest_framework import generics
 from .models import *
+from .serializers import *
 
 
 # Create your views here.
+class GameAPIView(generics.ListAPIView):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+
+
+
 def main_page(requests):
     return render(requests, 'main.html', context={'title': 'Главная страница'})
 

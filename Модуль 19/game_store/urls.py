@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from task1.views import *
 
 urlpatterns = [
@@ -23,5 +23,7 @@ urlpatterns = [
     path('main/', main_page),
     path('games/', games2),
     path('cart/', cart),
-    path('signup/', sign_up)
+    path('signup/', sign_up),
+    path('api/game_list/', GameAPIView.as_view()),
+    path('__debug__/', include('debug_toolbar.urls'))
 ]
